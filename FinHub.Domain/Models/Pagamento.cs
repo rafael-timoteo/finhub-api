@@ -8,7 +8,7 @@
 
         public decimal Valor { get; set; }
 
-        public int UltimosDigitosCartao { get; set; }
+        public string NumeroContaBancaria { get; set; }
     }
 
     public enum TipoPagamento

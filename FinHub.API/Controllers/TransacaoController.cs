@@ -1,21 +1,35 @@
-﻿using FinHub.API.Requests;
+﻿using FinHub.API.Converters;
+using FinHub.API.Requests;
+using FinHub.Gastos.Domain.Transacoes.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace finhub_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TransacaoController : Controller
+    public class TransacaoController(ICentralGastosService centralGastosService) : Controller
     {
+        private readonly ICentralGastosService centralGastosService = centralGastosService;
+
         [HttpPost]
-        public IActionResult RecebeTransacao([FromBody] TransacaoRequest transacao)
+        public IActionResult RecebeTransacao([FromBody] TransacaoRequest transacaoRequest)
         {
-            if (transacao == null)
+            if (transacaoRequest == null)
             {
                 return BadRequest("O payload não pode ser vazio.");
             }
 
-            return Ok(new { Message = "Transação recebida com sucesso!"});
+            try
+            {
+                var transacaoDTODomain = new TransacaoConverter().ToTransacaoDomain(transacaoRequest);
+
+                return Ok(centralGastosService.ProcessarGasto(transacaoDTODomain));
+            }
+            catch (Exception ex)
+            {
+                // Trata erros inesperados
+                return StatusCode(500, $"Erro ao processar a transação: {ex.Message}");
+            }
         }
     }
 }

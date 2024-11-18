@@ -1,24 +1,24 @@
 ﻿using FinHub.Gastos.Domain.Transacoes.Interfaces;
 using FinHub.Gastos.Domain.Transacoes.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FinHub.Gastos.Domain.Transacoes.Services
 {
     public class InfoGastosService : IInfoGastosService
     {
-        public async Task<Cnpj> ConsultarCNPJ(string cnpj)
+        public async Task<EmpresaDTO> ConsultarCNPJ(string cnpj)
         {
             using var client = new HttpClient();
             try
             {
-                // URL da API com o CNPJ
                 string url = $"https://api.cnpjs.dev/v1/{cnpj}";
 
-                // Enviar a solicitação GET para a API
                 var response = await client.GetStringAsync(url);
 
-                // Deserializar a resposta JSON para o objeto CnpjInfo
-                var cnpjInfo = JsonConvert.DeserializeObject<Cnpj>(response);
+                JObject jsonResponse = JObject.Parse(response);  // Verifica se a string é JSON válido
+                
+                var cnpjInfo = jsonResponse.ToObject<EmpresaDTO>();
 
                 return cnpjInfo!;
             }
@@ -32,12 +32,9 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
             }
         }
 
-        public TipoCNAE ClassificarCNAE(Cnpj cnpj)
+        public TipoCNAE ClassificarCNAE(string cnae)
         {
-            if (cnpj.CNAE == null)
-                throw new Exception("Não foi possível classificar o CNAE!");
-
-            string prefixoCNAE = cnpj.CNAE.Substring(0, 2);
+            string prefixoCNAE = cnae.Substring(0, 2);
 
             return prefixoCNAE switch
             {
@@ -46,10 +43,11 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
                 "47" => TipoCNAE.Comercio,
                 "49" => TipoCNAE.Transporte,
                 "56" => TipoCNAE.Alimentacao,
+                "59" => TipoCNAE.Cultura,
                 "85" => TipoCNAE.Educacao,
                 "86" => TipoCNAE.Saude,
                 "90" => TipoCNAE.Cultura,
-                _ => throw new Exception($"CNAE de prefixo: {prefixoCNAE} não existe ou não há classificação")
+                _ => throw new Exception("Não foi possível classificar o CNAE!")
             };
         }
     }

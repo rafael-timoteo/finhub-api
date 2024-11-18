@@ -4,8 +4,8 @@ namespace FinHub.Gastos.Domain.Transacoes.Interfaces
 {
     public interface IInfoGastosService
     {
-        public Task<Cnpj> ConsultarCNPJ(string cnpj);
+        public Task<EmpresaDTO> ConsultarCNPJ(string cnpj);
 
-        public TipoCNAE ClassificarCNAE(Cnpj cnpj);
+        public TipoCNAE ClassificarCNAE(string cnpj);
     }
 }

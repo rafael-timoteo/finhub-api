@@ -4,6 +4,6 @@
     {
         public string NomeEmpresa { get; set; }
 
-        public int Cnpj { get; set; }
+        public string Cnpj { get; set; }
     }
 }
