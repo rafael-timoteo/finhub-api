@@ -7,5 +7,7 @@
         public int Cpf { get; set; }
 
         public DateTime Nascimento { get; set; }
+
+        public int NumeroContaBancaria { get; set; }
     }
 }

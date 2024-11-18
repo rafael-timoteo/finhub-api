@@ -2,11 +2,11 @@
 {
     public class Pagamento
     {
+        public TipoPagamento TipoPagamento { get; set; }
+
         public DateTime Data { get; set; }
 
         public decimal Valor { get; set; }
-
-        public TipoPagamento TipoPagamento { get; set; }
 
         public int UltimosDigitosCartao { get; set; }
     }

@@ -4,8 +4,8 @@
     {
         public Cliente Cliente { get; set; }
 
-        public Estabelecimento Estabelecimento { get; set; }
-
         public Pagamento Pagamento { get; set; }
+
+        public Estabelecimento Estabelecimento { get; set; }
     }
 }

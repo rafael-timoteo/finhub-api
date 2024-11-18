@@ -2,7 +2,7 @@
 {
     public class Estabelecimento
     {
-        public string Nome { get; set; }
+        public string NomeEmpresa { get; set; }
 
         public int Cnpj { get; set; }
     }
