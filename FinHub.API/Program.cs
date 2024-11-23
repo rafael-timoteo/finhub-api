@@ -1,5 +1,5 @@
-using FinHub.Gastos.Domain.Transacoes.Interfaces;
-using FinHub.Gastos.Domain.Transacoes.Services;
+using FinHub.API.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Add domain dependencies
-builder.Services.AddScoped<ICentralGastosService, CentralGastosService>();
-builder.Services.AddScoped<IInfoGastosService, InfoGastosService>();
+builder.Services.AddDependencyInjectionForRepositories();
+
+builder.Services.AddDependencyInjectionForServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -29,5 +29,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Lifetime.ApplicationStopped.Register(Log.CloseAndFlush);
 
 app.Run();
