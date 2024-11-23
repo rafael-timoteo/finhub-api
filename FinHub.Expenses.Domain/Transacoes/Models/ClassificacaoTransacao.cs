@@ -9,6 +9,7 @@
         /// Gastos com contas.
         /// </summary>
         Contas,
+
         /// <summary>
         /// Gastos com compras no geral.
         /// </summary>

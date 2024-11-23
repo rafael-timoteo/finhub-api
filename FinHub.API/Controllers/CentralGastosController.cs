@@ -42,7 +42,7 @@ namespace finhub_api.Controllers
                                                                             gastosPorClassificacao.Classificacao, 
                                                                             gastosPorClassificacao.DataInicio, 
                                                                             gastosPorClassificacao.DataFim);
-                return Ok(valorGasto);
+                return Ok($"{gastosPorClassificacao.Classificacao}: {valorGasto}");
             }
             catch (Exception ex)
             {

@@ -37,11 +37,11 @@ namespace FinHub.Infra
         public static decimal SelectGastoClassificacao(string cpf, string classificacao, DateTime dataInicio, DateTime dataFim)
         {
             using var dbConnection = new DBConnection();
-            string query = @"SELECT SUM(valortransacao) 
-                            FROM finhub.extrato 
-                            WHERE clientecpf = @cpf 
-                                AND datatransacao BETWEEN @dataInicio AND @dataFim 
-                                AND classificacao = '@classificacao';";
+            string query = @"SELECT COALESCE(valortransacao::money, 0::money)
+                    FROM finhub.extrato 
+                    WHERE clientecpf = @cpf 
+                        AND datatransacao BETWEEN @dataInicio AND @dataFim 
+                        AND classificacao = @classificacao;";
             return dbConnection.Connection.QueryFirstOrDefault<decimal>(query, new { cpf, classificacao, dataInicio, dataFim });
         }
 
