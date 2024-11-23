@@ -14,5 +14,10 @@
         /// CNPJ da empresa que recebeu o pagamento.
         /// </summary>
         public string Cnpj { get; set; }
+
+        /// <summary>
+        /// Numero conta da empresa que recebeu o pagamento.
+        /// </summary>
+        public string NumeroContaBancaria { get; set; }
     }
 }

@@ -19,6 +19,6 @@ namespace FinHub.Gastos.Domain.Transacoes.Interfaces
         /// </summary>
         /// <param name="cnpj"></param>
         /// <returns>Classificacao do CNAE</returns>
-        public ClassificacaoCNAE ClassificarCNAE(string cnpj);
+        public ClassificacaoTransacao ClassificarCNAE(string cnpj);
     }
 }

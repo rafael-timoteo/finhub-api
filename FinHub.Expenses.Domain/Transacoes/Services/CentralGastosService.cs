@@ -22,6 +22,20 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
         public Gasto MontarGasto(Transacao transacao)
         {
             var empresa = infoGastos.ConsultarCNPJ(transacao.Estabelecimento.Cnpj).Result;
+            
+            ClassificacaoTransacao classificacao;
+            decimal valorGasto;
+
+            if (transacao.Estabelecimento.NumeroContaBancaria == transacao.Cliente.NumeroContaBancaria)
+            {
+                classificacao = Models.ClassificacaoTransacao.Entrada;
+                valorGasto = transacao.Pagamento.Valor;
+            }
+            else
+            {
+                classificacao = ClassificacaoTransacao(empresa);
+                valorGasto = - transacao.Pagamento.Valor;
+            }
 
             return new()
             {
@@ -29,13 +43,13 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
                 ClienteConta = transacao.Cliente.NumeroContaBancaria,
                 NomeEmpresa = empresa.NomeFantasia,
                 DataGasto = transacao.Pagamento.Data,
-                ValorGasto = transacao.Pagamento.Valor,
-                Classificacao = ClassificacaoTransacao(empresa)
+                ValorGasto = valorGasto,
+                Classificacao = classificacao
             };
         }
 
         /// <inheritdoc />
-        public ClassificacaoCNAE ClassificacaoTransacao(EmpresaDTO empresa)
+        public ClassificacaoTransacao ClassificacaoTransacao(EmpresaDTO empresa)
         {
             return infoGastos.ClassificarCNAE(empresa.CnaeFiscalPrincipal.Codigo.ToString());
         }

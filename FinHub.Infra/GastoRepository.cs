@@ -8,10 +8,6 @@ namespace FinHub.Infra
         {
             using var dbConnection = new DBConnection();
 
-            // Gerar um valor aleatório para o id
-            //var random = new Random();
-            //int id = random.Next(1, int.MaxValue);
-
             int id = SelectIDExtrato() + 1;
 
             string query = @"INSERT INTO finhub.extrato (id, clientecpf, numeroconta, nomeempresa, datatransacao, valortransacao, classificacao) 

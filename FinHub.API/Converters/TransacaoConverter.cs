@@ -24,7 +24,8 @@ namespace FinHub.API.Converters
                 },
                 Estabelecimento = new Estabelecimento
                 {
-                    Cnpj = transacaoRequest.BusinessEntity.Document.Identification
+                    Cnpj = transacaoRequest.BusinessEntity.Document.Identification,
+                    NumeroContaBancaria = transacaoRequest.DebtorAccount.Number
                 }
             };
         }

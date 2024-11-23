@@ -35,45 +35,45 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
         }
 
         /// <inheritdoc />
-        public ClassificacaoCNAE ClassificarCNAE(string cnae)
+        public ClassificacaoTransacao ClassificarCNAE(string cnae)
         {
             string prefixoCNAE = cnae.Substring(0, 2);
 
             return prefixoCNAE switch
             {
-                "35" => ClassificacaoCNAE.Contas, // Eletricidade e gás
-                "36" => ClassificacaoCNAE.Contas, // Água
-                "37" => ClassificacaoCNAE.Contas, // Água
-                "38" => ClassificacaoCNAE.Contas, // Água
-                "39" => ClassificacaoCNAE.Contas, // Água
-                "41" => ClassificacaoCNAE.Contas, // Construção
-                "42" => ClassificacaoCNAE.Contas, // Construção
-                "43" => ClassificacaoCNAE.Contas, // Construção
-                "61" => ClassificacaoCNAE.Contas, // Telecomunicações
-                "65" => ClassificacaoCNAE.Contas, // SEGUROS, RESSEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
-                "66" => ClassificacaoCNAE.Contas, // ATIVIDADES AUXILIARES DOS SERVIÇOS FINANCEIROS, SEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
-                "68" => ClassificacaoCNAE.Contas, // Atividades imobiliárias
-                "97" => ClassificacaoCNAE.Contas, // Serviços domésticos
+                "35" => ClassificacaoTransacao.Contas, // Eletricidade e gás
+                "36" => ClassificacaoTransacao.Contas, // Água
+                "37" => ClassificacaoTransacao.Contas, // Água
+                "38" => ClassificacaoTransacao.Contas, // Água
+                "39" => ClassificacaoTransacao.Contas, // Água
+                "41" => ClassificacaoTransacao.Contas, // Construção
+                "42" => ClassificacaoTransacao.Contas, // Construção
+                "43" => ClassificacaoTransacao.Contas, // Construção
+                "61" => ClassificacaoTransacao.Contas, // Telecomunicações
+                "65" => ClassificacaoTransacao.Contas, // SEGUROS, RESSEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
+                "66" => ClassificacaoTransacao.Contas, // ATIVIDADES AUXILIARES DOS SERVIÇOS FINANCEIROS, SEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
+                "68" => ClassificacaoTransacao.Contas, // Atividades imobiliárias
+                "97" => ClassificacaoTransacao.Contas, // Serviços domésticos
 
-                "46" => ClassificacaoCNAE.Compras, // Comércio atacado
-                "47" => ClassificacaoCNAE.Compras, // Comércio varejista
+                "46" => ClassificacaoTransacao.Compras, // Comércio atacado
+                "47" => ClassificacaoTransacao.Compras, // Comércio varejista
 
-                "49" => ClassificacaoCNAE.Transporte, // Transporte terrestre
-                "50" => ClassificacaoCNAE.Transporte, // Transporte aéreo
+                "49" => ClassificacaoTransacao.Transporte, // Transporte terrestre
+                "50" => ClassificacaoTransacao.Transporte, // Transporte aéreo
 
-                "56" => ClassificacaoCNAE.Alimentacao, // Alimentacao
+                "56" => ClassificacaoTransacao.Alimentacao, // Alimentacao
 
-                "59" => ClassificacaoCNAE.Entretenimento, // Atividades cinematográficas
-                "90" => ClassificacaoCNAE.Entretenimento, // Atividades artísticas, criativas e de espetáculos
-                "91" => ClassificacaoCNAE.Entretenimento, // Atividades ligadas ao patrimônio cultural e ambiental
-                "93" => ClassificacaoCNAE.Entretenimento, // Atividades esportivas e de recreação e lazer
+                "59" => ClassificacaoTransacao.Entretenimento, // Atividades cinematográficas
+                "90" => ClassificacaoTransacao.Entretenimento, // Atividades artísticas, criativas e de espetáculos
+                "91" => ClassificacaoTransacao.Entretenimento, // Atividades ligadas ao patrimônio cultural e ambiental
+                "93" => ClassificacaoTransacao.Entretenimento, // Atividades esportivas e de recreação e lazer
 
-                "85" => ClassificacaoCNAE.Educacao, // Educação
+                "85" => ClassificacaoTransacao.Educacao, // Educação
 
-                "86" => ClassificacaoCNAE.Saude, // Atividades de atenção à saúde humana
-                "75" => ClassificacaoCNAE.Saude, // Atividades veterinárias
+                "86" => ClassificacaoTransacao.Saude, // Atividades de atenção à saúde humana
+                "75" => ClassificacaoTransacao.Saude, // Atividades veterinárias
 
-                _ => ClassificacaoCNAE.Outros
+                _ => ClassificacaoTransacao.Outros
             };
         }
     }

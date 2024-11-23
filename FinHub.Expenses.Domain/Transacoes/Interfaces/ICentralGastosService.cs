@@ -26,6 +26,6 @@ namespace FinHub.Gastos.Domain.Transacoes.Interfaces
         /// </summary>
         /// <param name="empresa">Dados da empresa</param>
         /// <returns>Classificação da transação</returns>
-        public ClassificacaoCNAE ClassificacaoTransacao(EmpresaDTO empresa);
+        public ClassificacaoTransacao ClassificacaoTransacao(EmpresaDTO empresa);
     }
 }
