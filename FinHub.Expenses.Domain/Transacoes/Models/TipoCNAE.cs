@@ -2,20 +2,20 @@
 {
     public enum TipoCNAE
     {
-        Eletricidade = 35,
+        Contas,
 
-        Agua = 36,
+        Compras,
 
-        Comercio  = 47,
+        Transporte,
 
-        Transporte = 49,
+        Alimentacao,
 
-        Alimentacao = 56,
+        Educacao,
 
-        Educacao = 85,
+        Saude,
 
-        Saude = 86,
+        Entretenimento,
 
-        Cultura = 90,
+        Outros
     }
 }

@@ -16,11 +16,11 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
 
                 var response = await client.GetStringAsync(url);
 
-                JObject jsonResponse = JObject.Parse(response);  // Verifica se a string é JSON válido
+                JObject jsonResponse = JObject.Parse(response);
                 
-                var cnpjInfo = jsonResponse.ToObject<EmpresaDTO>();
+                var empresaInfo = jsonResponse.ToObject<EmpresaDTO>();
 
-                return cnpjInfo!;
+                return empresaInfo!;
             }
             catch (HttpRequestException e)
             {
@@ -38,16 +38,39 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
 
             return prefixoCNAE switch
             {
-                "35" => TipoCNAE.Eletricidade,
-                "36" => TipoCNAE.Agua,
-                "47" => TipoCNAE.Comercio,
-                "49" => TipoCNAE.Transporte,
-                "56" => TipoCNAE.Alimentacao,
-                "59" => TipoCNAE.Cultura,
-                "85" => TipoCNAE.Educacao,
-                "86" => TipoCNAE.Saude,
-                "90" => TipoCNAE.Cultura,
-                _ => throw new Exception("Não foi possível classificar o CNAE!")
+                "35" => TipoCNAE.Contas, // Eletricidade e gás
+                "36" => TipoCNAE.Contas, // Água
+                "37" => TipoCNAE.Contas, // Água
+                "38" => TipoCNAE.Contas, // Água
+                "39" => TipoCNAE.Contas, // Água
+                "41" => TipoCNAE.Contas, // Construção
+                "42" => TipoCNAE.Contas, // Construção
+                "43" => TipoCNAE.Contas, // Construção
+                "61" => TipoCNAE.Contas, // Telecomunicações
+                "65" => TipoCNAE.Contas, // SEGUROS, RESSEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
+                "66" => TipoCNAE.Contas, // ATIVIDADES AUXILIARES DOS SERVIÇOS FINANCEIROS, SEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
+                "68" => TipoCNAE.Contas, // Atividades imobiliárias
+                "97" => TipoCNAE.Contas, // Serviços domésticos
+
+                "46" => TipoCNAE.Compras, // Comércio atacado
+                "47" => TipoCNAE.Compras, // Comércio varejista
+
+                "49" => TipoCNAE.Transporte, // Transporte terrestre
+                "50" => TipoCNAE.Transporte, // Transporte aéreo
+
+                "56" => TipoCNAE.Alimentacao, // Alimentacao
+
+                "59" => TipoCNAE.Entretenimento, // Atividades cinematográficas
+                "90" => TipoCNAE.Entretenimento, // Atividades artísticas, criativas e de espetáculos
+                "91" => TipoCNAE.Entretenimento, // Atividades ligadas ao patrimônio cultural e ambiental
+                "93" => TipoCNAE.Entretenimento, // Atividades esportivas e de recreação e lazer
+
+                "85" => TipoCNAE.Educacao, // Educação
+
+                "86" => TipoCNAE.Saude, // Atividades de atenção à saúde humana
+                "75" => TipoCNAE.Saude, // Atividades veterinárias
+
+                _ => TipoCNAE.Outros
             };
         }
     }
