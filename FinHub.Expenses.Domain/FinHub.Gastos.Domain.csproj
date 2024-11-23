@@ -4,15 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<NoWarn>CS8618</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Transacoes\Models\" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <ProjectReference Include="..\FinHub.Domain\FinHub.Domain.csproj" />
+    <ProjectReference Include="..\FinHub.Infra\FinHub.Infra.csproj" />
   </ItemGroup>
 
 </Project>

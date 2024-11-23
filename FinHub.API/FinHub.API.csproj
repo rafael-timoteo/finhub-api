@@ -1,14 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>finhub_api</RootNamespace>
+    <RootNamespace>FinHub.API</RootNamespace>
+    <NoWarn>CS8618</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+    <PackageReference Include="Serilog" Version="4.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinHub.Domain\FinHub.Domain.csproj" />
+    <ProjectReference Include="..\FinHub.Expenses.Domain\FinHub.Gastos.Domain.csproj" />
+    <ProjectReference Include="..\FinHub.Infra\FinHub.Infra.csproj" />
   </ItemGroup>
 
 </Project>

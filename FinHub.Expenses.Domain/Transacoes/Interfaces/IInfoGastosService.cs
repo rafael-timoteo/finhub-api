@@ -2,10 +2,23 @@
 
 namespace FinHub.Gastos.Domain.Transacoes.Interfaces
 {
+    /// <summary>
+    /// Serviço para consultar informações a partir do gasto.
+    /// </summary>
     public interface IInfoGastosService
     {
-        public Task<Cnpj> ConsultarCNPJ(string cnpj);
+        /// <summary>
+        /// Consulta o CNPJ da empresa.
+        /// </summary>
+        /// <param name="cnpj"></param>
+        /// <returns>Objeto com dados da empresa</returns>
+        public Task<EmpresaDTO> ConsultarCNPJ(string cnpj);
 
-        public TipoCNAE ClassificarCNAE(Cnpj cnpj);
+        /// <summary>
+        /// Classifica o CNAE da empresa.
+        /// </summary>
+        /// <param name="cnpj"></param>
+        /// <returns>Classificacao do CNAE</returns>
+        public ClassificacaoCNAE ClassificarCNAE(string cnpj);
     }
 }

@@ -1,21 +1,47 @@
 ﻿namespace FinHub.Gastos.Domain.Transacoes.Models
 {
-    public enum TipoCNAE
+    /// <summary>
+    /// Definição dos tipos de classificação de CNAES tratados.
+    /// </summary>
+    public enum ClassificacaoCNAE
     {
-        Eletricidade = 35,
+        /// <summary>
+        /// Gastos com contas.
+        /// </summary>
+        Contas,
+        /// <summary>
+        /// Gastos com compras no geral.
+        /// </summary>
+        Compras,
 
-        Agua = 36,
+        /// <summary>
+        /// Gastos com transporte.
+        /// </summary>
+        Transporte,
 
-        Comercio  = 47,
+        /// <summary>
+        /// Gastos com alimentação.
+        /// </summary>
+        Alimentacao,
 
-        Transporte = 49,
+        /// <summary>
+        /// Gastos com educação.
+        /// </summary>
+        Educacao,
 
-        Alimentacao = 56,
+        /// <summary>
+        /// Gastos com saude.
+        /// </summary>
+        Saude,
 
-        Educacao = 85,
+        /// <summary>
+        /// Gastos com lazer e entretenimento.
+        /// </summary>
+        Entretenimento,
 
-        Saude = 86,
-
-        Cultura = 90,
+        /// <summary>
+        /// Outros tipos de gastos.
+        /// </summary>
+        Outros
     }
 }
