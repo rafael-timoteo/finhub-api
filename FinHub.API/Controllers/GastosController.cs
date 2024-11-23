@@ -7,7 +7,7 @@ namespace finhub_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TransacaoController(ICentralGastosService centralGastosService) : Controller
+    public class GastosController(ICentralGastosService centralGastosService) : Controller
     {
         private readonly ICentralGastosService centralGastosService = centralGastosService;
 
@@ -15,19 +15,15 @@ namespace finhub_api.Controllers
         public IActionResult RecebeTransacao([FromBody] TransacaoRequest transacaoRequest)
         {
             if (transacaoRequest == null)
-            {
                 return BadRequest("O payload não pode ser vazio.");
-            }
 
             try
             {
                 var transacaoDTODomain = new TransacaoConverter().ToTransacaoDomain(transacaoRequest);
-
-                return Ok(centralGastosService.ProcessarGasto(transacaoDTODomain));
+                return Ok(centralGastosService.MontarGasto(transacaoDTODomain));
             }
             catch (Exception ex)
             {
-                // Trata erros inesperados
                 return StatusCode(500, $"Erro ao processar a transação: {ex.Message}");
             }
         }

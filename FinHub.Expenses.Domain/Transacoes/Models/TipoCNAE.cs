@@ -3,7 +3,7 @@
     /// <summary>
     /// Definição dos tipos de classificação de CNAES tratados.
     /// </summary>
-    public enum TipoCNAE
+    public enum ClassificacaoCNAE
     {
         /// <summary>
         /// Gastos com contas.

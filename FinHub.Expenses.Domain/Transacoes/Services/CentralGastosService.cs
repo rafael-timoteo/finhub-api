@@ -8,15 +8,27 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
     public class CentralGastosService(IInfoGastosService infoGastos) : ICentralGastosService
     {
         private readonly IInfoGastosService infoGastos = infoGastos;
-        
+
         /// <inheritdoc />
-        public string ProcessarGasto(Transacao transacao)
+        public Gasto MontarGasto(Transacao transacao)
         {
-            var empresa = infoGastos.ConsultarCNPJ(transacao.Estabelecimento.Cnpj);
+            var empresa = infoGastos.ConsultarCNPJ(transacao.Estabelecimento.Cnpj).Result;
 
-            TipoCNAE classificacaoTransacao = infoGastos.ClassificarCNAE(empresa.Result.CnaeFiscalPrincipal.Codigo.ToString()!);
+            return new()
+            {
+                ClienteCPF = transacao.Cliente.Cpf,
+                ClienteConta = transacao.Cliente.NumeroContaBancaria,
+                NomeEmpresa = transacao.Estabelecimento.NomeEmpresa,
+                DataGasto = transacao.Pagamento.Data,
+                ValorGasto = transacao.Pagamento.Valor,
+                Classificacao = ClassificacaoTransacao(empresa)
+            };
+        }
 
-            return classificacaoTransacao.ToString();
+        /// <inheritdoc />
+        public ClassificacaoCNAE ClassificacaoTransacao(EmpresaDTO empresa)
+        {
+            return infoGastos.ClassificarCNAE(empresa.CnaeFiscalPrincipal.Codigo.ToString());
         }
     }
 }

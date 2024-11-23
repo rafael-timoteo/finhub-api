@@ -35,45 +35,45 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
         }
 
         /// <inheritdoc />
-        public TipoCNAE ClassificarCNAE(string cnae)
+        public ClassificacaoCNAE ClassificarCNAE(string cnae)
         {
             string prefixoCNAE = cnae.Substring(0, 2);
 
             return prefixoCNAE switch
             {
-                "35" => TipoCNAE.Contas, // Eletricidade e gás
-                "36" => TipoCNAE.Contas, // Água
-                "37" => TipoCNAE.Contas, // Água
-                "38" => TipoCNAE.Contas, // Água
-                "39" => TipoCNAE.Contas, // Água
-                "41" => TipoCNAE.Contas, // Construção
-                "42" => TipoCNAE.Contas, // Construção
-                "43" => TipoCNAE.Contas, // Construção
-                "61" => TipoCNAE.Contas, // Telecomunicações
-                "65" => TipoCNAE.Contas, // SEGUROS, RESSEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
-                "66" => TipoCNAE.Contas, // ATIVIDADES AUXILIARES DOS SERVIÇOS FINANCEIROS, SEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
-                "68" => TipoCNAE.Contas, // Atividades imobiliárias
-                "97" => TipoCNAE.Contas, // Serviços domésticos
+                "35" => ClassificacaoCNAE.Contas, // Eletricidade e gás
+                "36" => ClassificacaoCNAE.Contas, // Água
+                "37" => ClassificacaoCNAE.Contas, // Água
+                "38" => ClassificacaoCNAE.Contas, // Água
+                "39" => ClassificacaoCNAE.Contas, // Água
+                "41" => ClassificacaoCNAE.Contas, // Construção
+                "42" => ClassificacaoCNAE.Contas, // Construção
+                "43" => ClassificacaoCNAE.Contas, // Construção
+                "61" => ClassificacaoCNAE.Contas, // Telecomunicações
+                "65" => ClassificacaoCNAE.Contas, // SEGUROS, RESSEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
+                "66" => ClassificacaoCNAE.Contas, // ATIVIDADES AUXILIARES DOS SERVIÇOS FINANCEIROS, SEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
+                "68" => ClassificacaoCNAE.Contas, // Atividades imobiliárias
+                "97" => ClassificacaoCNAE.Contas, // Serviços domésticos
 
-                "46" => TipoCNAE.Compras, // Comércio atacado
-                "47" => TipoCNAE.Compras, // Comércio varejista
+                "46" => ClassificacaoCNAE.Compras, // Comércio atacado
+                "47" => ClassificacaoCNAE.Compras, // Comércio varejista
 
-                "49" => TipoCNAE.Transporte, // Transporte terrestre
-                "50" => TipoCNAE.Transporte, // Transporte aéreo
+                "49" => ClassificacaoCNAE.Transporte, // Transporte terrestre
+                "50" => ClassificacaoCNAE.Transporte, // Transporte aéreo
 
-                "56" => TipoCNAE.Alimentacao, // Alimentacao
+                "56" => ClassificacaoCNAE.Alimentacao, // Alimentacao
 
-                "59" => TipoCNAE.Entretenimento, // Atividades cinematográficas
-                "90" => TipoCNAE.Entretenimento, // Atividades artísticas, criativas e de espetáculos
-                "91" => TipoCNAE.Entretenimento, // Atividades ligadas ao patrimônio cultural e ambiental
-                "93" => TipoCNAE.Entretenimento, // Atividades esportivas e de recreação e lazer
+                "59" => ClassificacaoCNAE.Entretenimento, // Atividades cinematográficas
+                "90" => ClassificacaoCNAE.Entretenimento, // Atividades artísticas, criativas e de espetáculos
+                "91" => ClassificacaoCNAE.Entretenimento, // Atividades ligadas ao patrimônio cultural e ambiental
+                "93" => ClassificacaoCNAE.Entretenimento, // Atividades esportivas e de recreação e lazer
 
-                "85" => TipoCNAE.Educacao, // Educação
+                "85" => ClassificacaoCNAE.Educacao, // Educação
 
-                "86" => TipoCNAE.Saude, // Atividades de atenção à saúde humana
-                "75" => TipoCNAE.Saude, // Atividades veterinárias
+                "86" => ClassificacaoCNAE.Saude, // Atividades de atenção à saúde humana
+                "75" => ClassificacaoCNAE.Saude, // Atividades veterinárias
 
-                _ => TipoCNAE.Outros
+                _ => ClassificacaoCNAE.Outros
             };
         }
     }

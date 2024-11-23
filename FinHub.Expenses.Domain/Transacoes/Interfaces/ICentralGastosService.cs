@@ -1,4 +1,5 @@
 ﻿using FinHub.Domain.Models;
+using FinHub.Gastos.Domain.Transacoes.Models;
 
 namespace FinHub.Gastos.Domain.Transacoes.Interfaces
 {
@@ -7,6 +8,18 @@ namespace FinHub.Gastos.Domain.Transacoes.Interfaces
     /// </summary>
     public interface ICentralGastosService
     {
-        public string ProcessarGasto(Transacao transacao);
+        /// <summary>
+        /// Serviço para montar o objeto de gasto.
+        /// </summary>
+        /// <param name="transacao">Dados da transação</param>
+        /// <returns>Gasto</returns>
+        public Gasto MontarGasto(Transacao transacao);
+
+        /// <summary>
+        /// Serviço para classificar a transação bancária.
+        /// </summary>
+        /// <param name="empresa">Dados da empresa</param>
+        /// <returns>Classificação da transação</returns>
+        public ClassificacaoCNAE ClassificacaoTransacao(EmpresaDTO empresa);
     }
 }
