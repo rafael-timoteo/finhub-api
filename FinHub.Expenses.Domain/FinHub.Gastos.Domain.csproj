@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FinHub.Domain\FinHub.Domain.csproj" />
+    <ProjectReference Include="..\FinHub.Infra\FinHub.Infra.csproj" />
   </ItemGroup>
 
 </Project>

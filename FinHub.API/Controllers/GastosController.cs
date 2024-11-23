@@ -12,7 +12,7 @@ namespace finhub_api.Controllers
         private readonly ICentralGastosService centralGastosService = centralGastosService;
 
         [HttpPost]
-        public IActionResult RecebeTransacao([FromBody] TransacaoRequest transacaoRequest)
+        public IActionResult ReceberTransacao([FromBody] TransacaoRequest transacaoRequest)
         {
             if (transacaoRequest == null)
                 return BadRequest("O payload não pode ser vazio.");
@@ -20,7 +20,8 @@ namespace finhub_api.Controllers
             try
             {
                 var transacaoDTODomain = new TransacaoConverter().ToTransacaoDomain(transacaoRequest);
-                return Ok(centralGastosService.MontarGasto(transacaoDTODomain));
+                centralGastosService.CriarGasto(transacaoDTODomain);
+                return Ok("Gasto criado com sucesso.");
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using FinHub.Gastos.Domain.Transacoes.Interfaces;
 using FinHub.Gastos.Domain.Transacoes.Services;
+using FinHub.Infra;
 
 namespace FinHub.API.Extensions
 {
@@ -13,6 +14,9 @@ namespace FinHub.API.Extensions
         {
             services.AddScoped<ICentralGastosService, CentralGastosService>();
             services.AddScoped<IInfoGastosService, InfoGastosService>();
+
+            services.AddSingleton<IDisposable, DBConnection>();
+            services.AddScoped<GastoRepository>();
         }
     }
 }

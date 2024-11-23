@@ -36,17 +36,17 @@ INSERT INTO Instituicoes_Financeiras (ID_Banco, Nome_Banco, CNPJ) VALUES
 (14, 'Bacen', '33344455500100'),
 (15, 'Banco PAN', '88999877000123');
 
-INSERT INTO Conta_Corrente (ID, ID_Conta, ID_Banco, Agencia, Numero_Conta, Saldo, Tipo_Conta) VALUES
-(6, 6, 6, '9999', '32165498-7', 1000.00, 'Corrente'),
-(7, 7, 7, '8888', '45361237-1', 2000.50, 'Poupança'),
-(8, 8, 8, '7777', '12398765-3', 500.75, 'Corrente'),
-(9, 9, 9, '6666', '87654321-5', 300.25, 'Poupança'),
-(10, 10, 10, '5555', '23487654-2', 800.00, 'Corrente'),
-(11, 11, 11, '4444', '98761234-6', 10000.00, 'Poupança'),
-(12, 12, 12, '3333', '99887766-0', 1500.00, 'Corrente'),
-(13, 13, 13, '2222', '12345678-9', 1000.25, 'Corrente'),
-(14, 14, 14, '1111', '23456789-7', 2500.00, 'Poupança'),
-(15, 15, 15, '0000', '87654321-0', 5000.50, 'Corrente');
+INSERT INTO Conta_Corrente (ID_Conta, ID_Banco, Agencia, Numero_Conta, Saldo, Tipo_Conta) VALUES
+(6, 6, '9999', '32165498-7', 1000.00, 'Corrente'),
+(7, 7, '8888', '45361237-1', 2000.50, 'Poupança'),
+(8, 8, '7777', '12398765-3', 500.75, 'Corrente'),
+(9, 9, '6666', '87654321-5', 300.25, 'Poupança'),
+(10, 10, '5555', '23487654-2', 800.00, 'Corrente'),
+(11, 11, '4444', '98761234-6', 10000.00, 'Poupança'),
+(12, 12, '3333', '99887766-0', 1500.00, 'Corrente'),
+(13, 13, '2222', '12345678-9', 1000.25, 'Corrente'),
+(14, 14, '1111', '23456789-7', 2500.00, 'Poupança'),
+(15, 15, '0000', '87654321-0', 5000.50, 'Corrente');
 
 INSERT INTO Extrato (ID, ClienteCPF, NumeroConta, NomeEmpresa, DataTransacao, ValorTransacao, Classificacao) VALUES
 (11, '11223344567', '32165498-7', 'Magazine Luiza', '2024-11-11', 150.00, 'Compras'),

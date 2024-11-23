@@ -9,6 +9,12 @@ namespace FinHub.Gastos.Domain.Transacoes.Interfaces
     public interface ICentralGastosService
     {
         /// <summary>
+        /// Serviço para criar um gasto.
+        /// </summary>
+        /// <param name="transacao"></param>
+        public void CriarGasto(Transacao transacao);
+
+        /// <summary>
         /// Serviço para montar o objeto de gasto.
         /// </summary>
         /// <param name="transacao">Dados da transação</param>

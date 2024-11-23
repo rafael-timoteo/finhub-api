@@ -19,8 +19,7 @@ CREATE TABLE IF NOT EXISTS Instituicoes_Financeiras (
 );
 
 CREATE TABLE IF NOT EXISTS Conta_Corrente (
-    ID INT PRIMARY KEY,
-    ID_Conta INT REFERENCES Usuario_Contas(id_conta),
+    ID_Conta INT PRIMARY KEY REFERENCES Usuario_Contas(id_conta),
     ID_Banco INT REFERENCES Instituicoes_Financeiras(ID_Banco),
     Agencia VARCHAR(20) NOT NULL,
     Numero_Conta VARCHAR(20) NOT NULL,
