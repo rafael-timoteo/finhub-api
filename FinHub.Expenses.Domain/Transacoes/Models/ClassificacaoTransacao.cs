@@ -1,9 +1,9 @@
 ﻿namespace FinHub.Gastos.Domain.Transacoes.Models
 {
     /// <summary>
-    /// Definição dos tipos de classificação de CNAES tratados.
+    /// Definição dos tipos de classificação de transações tratadas.
     /// </summary>
-    public enum ClassificacaoCNAE
+    public enum ClassificacaoTransacao
     {
         /// <summary>
         /// Gastos com contas.
@@ -38,6 +38,11 @@
         /// Gastos com lazer e entretenimento.
         /// </summary>
         Entretenimento,
+
+        /// <summary>
+        /// Valor creditado na conta.
+        /// </summary>
+        Entrada,
 
         /// <summary>
         /// Outros tipos de gastos.

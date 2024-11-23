@@ -33,6 +33,6 @@
         /// <summary>
         /// Classificacao do gasto
         /// </summary>
-        public ClassificacaoCNAE Classificacao { get; set; }
+        public ClassificacaoTransacao Classificacao { get; set; }
     }
 }
