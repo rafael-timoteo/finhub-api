@@ -5,8 +5,10 @@ using Newtonsoft.Json.Linq;
 
 namespace FinHub.Gastos.Domain.Transacoes.Services
 {
+    /// <inheritdoc />
     public class InfoGastosService : IInfoGastosService
     {
+        /// <inheritdoc />
         public async Task<EmpresaDTO> ConsultarCNPJ(string cnpj)
         {
             using var client = new HttpClient();
@@ -32,6 +34,7 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
             }
         }
 
+        /// <inheritdoc />
         public TipoCNAE ClassificarCNAE(string cnae)
         {
             string prefixoCNAE = cnae.Substring(0, 2);

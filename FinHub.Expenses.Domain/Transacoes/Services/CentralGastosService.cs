@@ -4,10 +4,12 @@ using FinHub.Gastos.Domain.Transacoes.Models;
 
 namespace FinHub.Gastos.Domain.Transacoes.Services
 {
+    /// <inheritdoc />
     public class CentralGastosService(IInfoGastosService infoGastos) : ICentralGastosService
     {
         private readonly IInfoGastosService infoGastos = infoGastos;
-
+        
+        /// <inheritdoc />
         public string ProcessarGasto(Transacao transacao)
         {
             var empresa = infoGastos.ConsultarCNPJ(transacao.Estabelecimento.Cnpj);
