@@ -18,16 +18,39 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
         }
 
         /// <inheritdoc />
-        public decimal GetGastoClassificacao(string clienteCPF, ClassificacaoTransacao classificacao, DateTime dataInicio, DateTime dataFim)
+        public decimal GetGastoClassificacao(string clienteCPF, ClassificacaoTransacao classificacao, DateTime? dataInicio, DateTime? dataFim)
         {
-            if (GastoRepository.ConferirCPF(clienteCPF))
-            {
-                return GastoRepository.SelectGastoClassificacao(clienteCPF, classificacao.ToString(), dataInicio, dataFim);
-            }
-            else
+            if (!GastoRepository.ConferirCPF(clienteCPF))
             {
                 throw new Exception("CPF não encontrado");
             }
+            if (dataInicio == null || dataFim == null)
+            {
+                DateTime[] intervaloDatas = GastoRepository.GetIntervaloDataPadraoClassificacao(clienteCPF, classificacao.ToString());
+                dataInicio = intervaloDatas[0];
+                dataFim = intervaloDatas[1];
+            }
+            return GastoRepository.SelectGastoClassificacao(clienteCPF, classificacao.ToString(), dataInicio.Value, dataFim.Value);
+        }
+
+        /// <inheritdoc />
+        public decimal GetGastoConta(string clienteCPF, string numeroConta, DateTime? dataInicio, DateTime? dataFim)
+        {
+            if (!GastoRepository.ConferirCPF(clienteCPF))
+            {
+                throw new Exception("CPF não encontrado");
+            }
+            if (!GastoRepository.ConferirConta(clienteCPF, numeroConta))
+            {
+                throw new Exception("Conta não encontrada");
+            }
+            if (dataInicio == null || dataFim == null)
+            {
+                DateTime[] intervaloDatas = GastoRepository.GetIntervaloDataPadraoConta(clienteCPF, numeroConta);
+                dataInicio = intervaloDatas[0];
+                dataFim = intervaloDatas[1];
+            }
+            return GastoRepository.SelectGastoConta(clienteCPF, numeroConta, dataInicio.Value, dataFim.Value);
         }
 
         /// <inheritdoc />

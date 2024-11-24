@@ -21,8 +21,18 @@ namespace FinHub.Gastos.Domain.Transacoes.Interfaces
         /// <param name="classificacao"></param>
         /// <param name="dataInicio"></param>
         /// <param name="dataFim"></param>
-        /// <returns>Valor de gasto</returns>
-        public decimal GetGastoClassificacao(string clienteCPF, ClassificacaoTransacao classificacao, DateTime dataInicio, DateTime dataFim);
+        /// <returns>Valor do gasto</returns>
+        public decimal GetGastoClassificacao(string clienteCPF, ClassificacaoTransacao classificacao, DateTime? dataInicio, DateTime? dataFim);
+
+        /// <summary>
+        /// Serviço para obter o gasto por conta e período de tempo.
+        /// </summary>
+        /// <param name="clienteCPF"></param>
+        /// <param name="conta"></param>
+        /// <param name="dataInicio"></param>
+        /// <param name="dataFim"></param>
+        /// <returns>Valor do gasto</returns>
+        public decimal GetGastoConta(string clienteCPF, string conta, DateTime? dataInicio, DateTime? dataFim);
 
         /// <summary>
         /// Serviço para montar o objeto de gasto.

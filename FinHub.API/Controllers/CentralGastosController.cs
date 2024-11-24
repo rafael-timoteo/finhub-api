@@ -37,8 +37,7 @@ namespace finhub_api.Controllers
                 return BadRequest("O payload não pode ser vazio.");
             try
             {
-                var valorGasto = centralGastosService.GetGastoClassificacao(
-                                                                            gastosPorClassificacao.ClienteCPF, 
+                var valorGasto = centralGastosService.GetGastoClassificacao(gastosPorClassificacao.ClienteCPF, 
                                                                             gastosPorClassificacao.Classificacao, 
                                                                             gastosPorClassificacao.DataInicio, 
                                                                             gastosPorClassificacao.DataFim);
@@ -46,7 +45,26 @@ namespace finhub_api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Erro ao processar a transação: {ex.Message}");
+                return StatusCode(500, $"Erro ao processar a transação GetGastosPorClassificacao: {ex.Message}");
+            }
+        }
+
+        [HttpPost("GetGastosPorConta")]
+        public IActionResult GetGastosPorConta([FromBody] GastosPorContaRequest gastosPorConta)
+        {
+            if (gastosPorConta == null)
+                return BadRequest("O payload não pode ser vazio.");
+            try
+            {
+                var valorGasto = centralGastosService.GetGastoConta(gastosPorConta.ClienteCPF,
+                                                                    gastosPorConta.Conta,
+                                                                    gastosPorConta.DataInicio,
+                                                                    gastosPorConta.DataFim);
+                return Ok($"{gastosPorConta.Conta}: {valorGasto}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro ao processar a transação GetGastosPorConta: {ex.Message}");
             }
         }
     }
