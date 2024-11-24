@@ -56,7 +56,7 @@ namespace FinHub.Infra
         public static decimal SelectGastoConta(string cpf, string numeroConta, DateTime dataInicio, DateTime dataFim)
         {
             using var dbConnection = new DBConnection();
-            string query = @"SELECT COALESCE(valortransacao::money, 0::money)
+            string query = @"SELECT COALESCE(SUM(valortransacao::money), 0::money)
                     FROM finhub.extrato 
                     WHERE clientecpf = @cpf 
                         AND numeroconta = @numeroConta 
@@ -76,7 +76,7 @@ namespace FinHub.Infra
             string query = @"SELECT cc.ID_conta
                             FROM finhub.usuario u
                             JOIN finhub.usuario_contas uc ON u.CPF = uc.CPF
-                            JOIN finhub.conta_corrente cc ON uc.ID_conta = cc.ID_conta
+                            JOIN finhub.conta_corrente cc ON uc.numero_conta_corrente = cc.numero_conta
                             WHERE u.CPF = @cpf
                               AND cc.numero_conta = @numeroConta;";
             string? idConta = dbConnection.Connection.QueryFirstOrDefault<string>(query, new { cpf, numeroConta });
