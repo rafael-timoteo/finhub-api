@@ -6,35 +6,70 @@ using FinHub.Infra;
 namespace FinHub.Gastos.Domain.Transacoes.Services
 {
     /// <inheritdoc />
-    public class CentralGastosService(IInfoGastosService infoGastos, GastoRepository gastoRepository) : ICentralGastosService
+    public class CentralGastosService(IInfoGastosService infoGastos) : ICentralGastosService
     {
         private readonly IInfoGastosService infoGastos = infoGastos;
-        private readonly GastoRepository gastoRepository = gastoRepository;
 
         /// <inheritdoc />
         public void CriarGasto(Transacao transacao)
         {
             var gasto = MontarGasto(transacao);
-            InsertGastoBD(gasto);
+            InsertTransacaoBD(gasto);
+        }
+
+        /// <inheritdoc />
+        public decimal GetGastoClassificacao(string clienteCPF, ClassificacaoTransacao classificacao, DateTime? dataInicio, DateTime? dataFim)
+        {
+            if (!GastoRepository.ConferirCPF(clienteCPF))
+            {
+                throw new Exception("CPF não encontrado");
+            }
+            if (dataInicio == null || dataFim == null)
+            {
+                DateTime[] intervaloDatas = GastoRepository.GetIntervaloDataPadraoClassificacao(clienteCPF, classificacao.ToString());
+                dataInicio = intervaloDatas[0];
+                dataFim = intervaloDatas[1];
+            }
+            return GastoRepository.SelectGastoClassificacao(clienteCPF, classificacao.ToString(), dataInicio.Value, dataFim.Value);
+        }
+
+        /// <inheritdoc />
+        public decimal GetGastoConta(string clienteCPF, string numeroConta, DateTime? dataInicio, DateTime? dataFim)
+        {
+            if (!GastoRepository.ConferirCPF(clienteCPF))
+            {
+                throw new Exception("CPF não encontrado");
+            }
+            if (!GastoRepository.ConferirConta(clienteCPF, numeroConta))
+            {
+                throw new Exception("Conta não encontrada");
+            }
+            if (dataInicio == null || dataFim == null)
+            {
+                DateTime[] intervaloDatas = GastoRepository.GetIntervaloDataPadraoConta(clienteCPF, numeroConta);
+                dataInicio = intervaloDatas[0];
+                dataFim = intervaloDatas[1];
+            }
+            return GastoRepository.SelectGastoConta(clienteCPF, numeroConta, dataInicio.Value, dataFim.Value);
         }
 
         /// <inheritdoc />
         public Gasto MontarGasto(Transacao transacao)
         {
             var empresa = infoGastos.ConsultarCNPJ(transacao.Estabelecimento.Cnpj).Result;
-            
+
             ClassificacaoTransacao classificacao;
             decimal valorGasto;
 
             if (transacao.Estabelecimento.NumeroContaBancaria == transacao.Cliente.NumeroContaBancaria)
             {
-                classificacao = Models.ClassificacaoTransacao.Entrada;
+                classificacao = ClassificacaoTransacao.Entrada;
                 valorGasto = transacao.Pagamento.Valor;
             }
             else
             {
-                classificacao = ClassificacaoTransacao(empresa);
-                valorGasto = - transacao.Pagamento.Valor;
+                classificacao = ClassificarTransacao(empresa);
+                valorGasto = -transacao.Pagamento.Valor;
             }
 
             return new()
@@ -49,19 +84,19 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
         }
 
         /// <inheritdoc />
-        public ClassificacaoTransacao ClassificacaoTransacao(EmpresaDTO empresa)
+        public ClassificacaoTransacao ClassificarTransacao(EmpresaDTO empresa)
         {
             return infoGastos.ClassificarCNAE(empresa.CnaeFiscalPrincipal.Codigo.ToString());
         }
 
         /// <inheritdoc />
-        private void InsertGastoBD(Gasto gasto)
+        private void InsertTransacaoBD(Gasto gasto)
         {
-            gastoRepository.InsertGasto(gasto.ClienteCPF, 
-                                gasto.ClienteConta, 
-                                gasto.NomeEmpresa, 
-                                gasto.DataGasto, 
-                                gasto.ValorGasto, 
+            GastoRepository.InsertTransacao(gasto.ClienteCPF,
+                                gasto.ClienteConta,
+                                gasto.NomeEmpresa,
+                                gasto.DataGasto,
+                                gasto.ValorGasto,
                                 gasto.Classificacao.ToString());
         }
     }
