@@ -12,5 +12,11 @@ namespace FinHub.Usuario.Domain.Interfaces
         /// </summary>
         /// <returns>Lista com informações de id_banco, saldo e tipo_conta.</returns>
         List<ContaCorrenteDTO> ObterInformacoesContaCorrente(string numeroConta);
+
+        public decimal ObterSaldo(string cpf);
+
+        public List<EntradaSaidaDTO> ObterEntradas(string cpf);
+
+        public List<EntradaSaidaDTO> ObterSaidas(string cpf);
     }
 }

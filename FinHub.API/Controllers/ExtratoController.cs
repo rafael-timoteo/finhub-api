@@ -11,13 +11,55 @@ namespace finhub_api.Controllers
     {
         private readonly IExtratoService extratoService = extratoService;
 
-        [HttpGet("extrato-conta")]
+        [HttpPost("ExtratoConta")]
         public IActionResult ObterContaCorrente(string numeroConta)
         {
             try
             {
                 var contas = extratoService.ObterInformacoesContaCorrente(numeroConta);
                 return Ok(contas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro ao buscar informações da conta corrente: {ex.Message}");
+            }
+        }
+
+        [HttpPost("SaldoConta")]
+        public IActionResult ObterSaldoConta(string cpf)
+        {
+            try
+            {
+                var saldo = extratoService.ObterSaldo(cpf);
+                return Ok($"Saldo: {saldo}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro ao buscar informações da conta corrente: {ex.Message}");
+            }
+        }
+
+        [HttpPost("EntradasConta")]
+        public IActionResult ObterEntradas(string cpf)
+        {
+            try
+            {
+                var entradas = extratoService.ObterEntradas(cpf);
+                return Ok(entradas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro ao buscar informações da conta corrente: {ex.Message}");
+            }
+        }
+
+        [HttpPost("SaidasConta")]
+        public IActionResult ObterSaidas(string cpf)
+        {
+            try
+            {
+                var saidas = extratoService.ObterSaidas(cpf);
+                return Ok(saidas);
             }
             catch (Exception ex)
             {

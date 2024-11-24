@@ -8,7 +8,22 @@ namespace FinHub.Usuario.Domain.Services
     {
         public List<ContaCorrenteDTO> ObterInformacoesContaCorrente(string numeroConta)
         {
-            return ContaCorrenteRepository.ObterDadosContaCorrente(numeroConta);
+            return ExtratoRepository.ObterDadosContaCorrente(numeroConta);
+        }
+
+        public decimal ObterSaldo(string cpf)
+        {
+            return ExtratoRepository.ObterSaldoTotal(cpf);
+        }
+
+        public List<EntradaSaidaDTO> ObterEntradas(string cpf)
+        {
+            return ExtratoRepository.ObterEntradasConta(cpf);
+        }
+
+        public List<EntradaSaidaDTO> ObterSaidas(string cpf)
+        {
+            return ExtratoRepository.ObterSaidasConta(cpf);
         }
     }
 }
