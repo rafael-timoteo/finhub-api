@@ -15,6 +15,16 @@ namespace FinHub.Gastos.Domain.Transacoes.Interfaces
         public void CriarGasto(Transacao transacao);
 
         /// <summary>
+        /// Serviço para obter o gasto por classificação e período de tempo.
+        /// </summary>
+        /// <param name="clienteCPF"></param>
+        /// <param name="classificacao"></param>
+        /// <param name="dataInicio"></param>
+        /// <param name="dataFim"></param>
+        /// <returns>Valor de gasto</returns>
+        public decimal GetGastoClassificacao(string clienteCPF, ClassificacaoTransacao classificacao, DateTime dataInicio, DateTime dataFim);
+
+        /// <summary>
         /// Serviço para montar o objeto de gasto.
         /// </summary>
         /// <param name="transacao">Dados da transação</param>
@@ -26,6 +36,6 @@ namespace FinHub.Gastos.Domain.Transacoes.Interfaces
         /// </summary>
         /// <param name="empresa">Dados da empresa</param>
         /// <returns>Classificação da transação</returns>
-        public ClassificacaoTransacao ClassificacaoTransacao(EmpresaDTO empresa);
+        public ClassificacaoTransacao ClassificarTransacao(EmpresaDTO empresa);
     }
 }
