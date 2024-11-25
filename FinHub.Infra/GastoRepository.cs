@@ -20,10 +20,19 @@ namespace FinHub.Infra
             int id = SelectIDExtrato() + 1;
 
             string query = @"INSERT INTO finhub.extrato (id, clientecpf, numeroconta, nomeempresa, datatransacao, valortransacao, classificacao) 
-                                VALUES (@id, @cpf, @numeroConta, @nomeEmpresa, @data, @valor, @classificacao);";
+                                    VALUES (@id, @cpf, @numeroConta, @nomeEmpresa, @data, @valor, @classificacao);";
 
             var result = dbConnection.Connection.Execute(query, new { id, cpf, numeroConta, nomeEmpresa, data, valor, classificacao });
-            return result == 1;
+
+            if (result == 1)
+            {
+                bool atualizaSaldo = AtualizarSaldoContaCorrente(numeroConta, valor);
+                
+                if (!atualizaSaldo) 
+                    return false;
+            }
+
+            return result == 0;
         }
 
         /// <summary>
@@ -38,10 +47,10 @@ namespace FinHub.Infra
         {
             using var dbConnection = new DBConnection();
             string query = @"SELECT COALESCE(valortransacao::money, 0::money)
-                    FROM finhub.extrato 
-                    WHERE clientecpf = @cpf 
-                        AND datatransacao BETWEEN @dataInicio AND @dataFim 
-                        AND classificacao = @classificacao;";
+                        FROM finhub.extrato 
+                        WHERE clientecpf = @cpf 
+                            AND datatransacao BETWEEN @dataInicio AND @dataFim 
+                            AND classificacao = @classificacao;";
             return dbConnection.Connection.QueryFirstOrDefault<decimal>(query, new { cpf, classificacao, dataInicio, dataFim });
         }
 
@@ -66,6 +75,23 @@ namespace FinHub.Infra
             using var dbConnection = new DBConnection();
             string query = @"SELECT MAX(id) FROM finhub.extrato;";
             return dbConnection.Connection.QueryFirstOrDefault<int>(query);
+        }
+
+        /// <summary>
+        /// Atualiza o saldo da conta corrente somando o valor da transação.
+        /// </summary>
+        /// <param name="numeroConta"></param>
+        /// <param name="valor"></param>
+        /// <returns>Verdadeiro se o saldo foi atualizado corretamente</returns>
+        public static bool AtualizarSaldoContaCorrente(string numeroConta, decimal valor)
+        {
+            using var dbConnection = new DBConnection();
+            string query = @"UPDATE finhub.conta_corrente 
+                                SET saldo = saldo + @valor::money
+                                WHERE numero_conta = '321654987';";
+
+            var result = dbConnection.Connection.Execute(query, new { numeroConta, valor });
+            return result == 1;
         }
     }
 }

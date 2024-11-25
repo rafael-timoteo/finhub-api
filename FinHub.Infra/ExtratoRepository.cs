@@ -5,17 +5,17 @@ namespace FinHub.Infra
 {
     public class ExtratoRepository
     {
-        public static List<ContaCorrenteDTO> ObterDadosContaCorrente(string numeroConta)
+        public static List<ContaCorrenteDTO> ObterDadosContaCorrente(string cpf)
         {
             using var dbConnection = new DBConnection();
-            string query = @"
-            SELECT tableCC.numero_conta AS NumeroConta, tableIF.nome_banco AS NomeBanco, tableCC.saldo AS Saldo
-            FROM finhub.conta_corrente tableCC
-            JOIN finhub.usuario_contas tableUC ON tableUC.numero_conta_corrente = tableCC.numero_conta
-            JOIN finhub.instituicoes_financeiras tableIF ON tableIF.id_banco = tableCC.id_banco
-            WHERE tableUC.numero_conta_corrente = @numeroConta;";
+            string query = @"SELECT tableCC.numero_conta AS NumeroConta, tableIF.nome_banco AS NomeBanco, tableCC.saldo AS Saldo
+                            FROM finhub.conta_corrente tableCC
+                            JOIN finhub.usuario_contas tableUC ON tableUC.numero_conta_corrente = tableCC.numero_conta
+                            JOIN finhub.instituicoes_financeiras tableIF ON tableIF.id_banco = tableCC.id_banco
+                            JOIN finhub.usuario u ON u.cpf = tableUC.cpf
+                            WHERE u.cpf = @cpf;";
 
-            var extrato = dbConnection.Connection.Query<ContaCorrenteDTO>(query, new { numeroConta }).AsList();
+            var extrato = dbConnection.Connection.Query<ContaCorrenteDTO>(query, new { cpf }).AsList();
 
             return extrato;
         }
@@ -24,10 +24,10 @@ namespace FinHub.Infra
         {
             using var dbConnection = new DBConnection();
             string query = @"SELECT SUM(cc.saldo) AS SaldoTotal
-            FROM finhub.usuario u
-            JOIN finhub.usuario_contas uc ON u.cpf = uc.cpf
-            JOIN finhub.conta_corrente cc ON uc.numero_conta_corrente = cc.numero_conta
-            WHERE u.cpf = @cpf;";
+                            FROM finhub.usuario u
+                            JOIN finhub.usuario_contas uc ON u.cpf = uc.cpf
+                            JOIN finhub.conta_corrente cc ON uc.numero_conta_corrente = cc.numero_conta
+                            WHERE u.cpf = @cpf;";
 
             var saldo = dbConnection.Connection.QueryFirstOrDefault<decimal>(query, new { cpf });
 

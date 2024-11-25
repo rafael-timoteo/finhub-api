@@ -6,9 +6,9 @@ namespace FinHub.Usuario.Domain.Services
 {
     public class ExtratoService : IExtratoService
     {
-        public List<ContaCorrenteDTO> ObterInformacoesContaCorrente(string numeroConta)
+        public List<ContaCorrenteDTO> ObterInformacoesContaCorrente(string cpf)
         {
-            return ExtratoRepository.ObterDadosContaCorrente(numeroConta);
+            return ExtratoRepository.ObterDadosContaCorrente(cpf);
         }
 
         public decimal ObterSaldo(string cpf)
