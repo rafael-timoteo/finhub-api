@@ -17,9 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FinHub.Domain\FinHub.Domain.csproj" />
-    <ProjectReference Include="..\FinHub.Expenses.Domain\FinHub.Gastos.Domain.csproj" />
+    <ProjectReference Include="..\FinHub.Expenses.Domain\FinHub.Domain.Gastos.csproj" />
     <ProjectReference Include="..\FinHub.Infra\FinHub.Infra.csproj" />
-    <ProjectReference Include="..\FinHub.Usuario.Domain\FinHub.Usuario.Domain.csproj" />
+    <ProjectReference Include="..\FinHub.Usuario.Domain\FinHub.Domain.Usuario.csproj" />
   </ItemGroup>
 
 </Project>

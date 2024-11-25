@@ -5,13 +5,13 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinHub.API", "FinHub.API\FinHub.API.csproj", "{0B7038B9-548B-48D6-B238-F0062E38F376}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinHub.Gastos.Domain", "FinHub.Expenses.Domain\FinHub.Gastos.Domain.csproj", "{EC40BD3C-6E1C-4925-A90A-FEB79A0FE862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinHub.Domain.Gastos", "FinHub.Expenses.Domain\FinHub.Domain.Gastos.csproj", "{EC40BD3C-6E1C-4925-A90A-FEB79A0FE862}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinHub.Domain", "FinHub.Domain\FinHub.Domain.csproj", "{B4B83F5F-A9CD-4244-B581-336364C3D85C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinHub.Infra", "FinHub.Infra\FinHub.Infra.csproj", "{30C588C4-C49D-4C93-BDB4-35BB5A3CA34F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinHub.Usuario.Domain", "FinHub.Usuario.Domain\FinHub.Usuario.Domain.csproj", "{807CAF46-D51D-4DC1-B7CA-535E9A953C58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinHub.Domain.Usuario", "FinHub.Usuario.Domain\FinHub.Domain.Usuario.csproj", "{807CAF46-D51D-4DC1-B7CA-535E9A953C58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
