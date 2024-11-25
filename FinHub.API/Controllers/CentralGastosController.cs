@@ -12,21 +12,24 @@ namespace FinHub.API.Controllers
     {
         private readonly ICentralGastosService centralGastosService = centralGastosService;
 
-        [HttpPost("ReceberTransacao")]
-        public IActionResult ReceberTransacao([FromBody] TransacaoRequest transacaoRequest)
+        [HttpPost("ReceberTransacoes")]
+        public IActionResult ReceberTransacoes([FromBody] List<TransacaoRequest> transacaoRequests)
         {
-            if (transacaoRequest == null)
+            if (transacaoRequests == null || !transacaoRequests.Any())
                 return BadRequest("O payload não pode ser vazio.");
 
             try
             {
-                var transacaoDTODomain = new TransacaoConverter().ToTransacaoDomain(transacaoRequest);
-                centralGastosService.CriarGasto(transacaoDTODomain);
-                return Ok("Gasto criado com sucesso.");
+                foreach (var transacaoRequest in transacaoRequests)
+                {
+                    var transacaoDTODomain = new TransacaoConverter().ToTransacaoDomain(transacaoRequest);
+                    centralGastosService.CriarGasto(transacaoDTODomain);
+                }
+                return Ok("Gastos criados com sucesso.");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Erro ao processar a transação: {ex.Message}");
+                return StatusCode(500, $"Erro ao processar as transações: {ex.Message}");
             }
         }
 

@@ -12,26 +12,48 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
         public async Task<EmpresaDTO> ConsultarCNPJ(string cnpj)
         {
             using var client = new HttpClient();
-            try
-            {
-                string url = $"https://api.cnpjs.dev/v1/{cnpj}";
+            string url = $"https://api.cnpjs.dev/v1/{cnpj}";
+            int maxRetries = 5; // Número máximo de tentativas
+            int delay = 2000; // Tempo em milissegundos entre tentativas
 
-                var response = await client.GetStringAsync(url);
-
-                JObject jsonResponse = JObject.Parse(response);
-                
-                var empresaInfo = jsonResponse.ToObject<EmpresaDTO>();
-
-                return empresaInfo!;
-            }
-            catch (HttpRequestException e)
+            for (int i = 0; i < maxRetries; i++)
             {
-                throw new Exception($"Erro na requisição: {e.Message}");
+                try
+                {
+                    var response = await client.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObject = JObject.Parse(jsonResponse);
+
+                        return jsonObject.ToObject<EmpresaDTO>()!;
+                    }
+                    else if ((int)response.StatusCode == 429)
+                    {
+                        // Aguarda antes de tentar novamente
+                        await Task.Delay(delay);
+                    }
+                    else
+                    {
+                        response.EnsureSuccessStatusCode();
+                    }
+                }
+                catch (HttpRequestException e)
+                {
+                    if (i == maxRetries - 1)
+                        throw new Exception($"Erro na requisição após várias tentativas: {e.Message}");
+
+                    // Aguarda antes de tentar novamente
+                    await Task.Delay(delay);
+                }
+                catch (JsonException e)
+                {
+                    throw new Exception($"Erro ao processar os dados JSON: {e.Message}");
+                }
             }
-            catch (JsonException e)
-            {
-                throw new Exception($"Erro ao processar os dados: {e.Message}");
-            }
+
+            throw new Exception("Não foi possível completar a requisição dentro do número máximo de tentativas.");
         }
 
         /// <inheritdoc />
@@ -51,6 +73,7 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
                 "43" => ClassificacaoTransacao.Contas, // Construção
                 "61" => ClassificacaoTransacao.Contas, // Telecomunicações
                 "65" => ClassificacaoTransacao.Contas, // SEGUROS, RESSEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
+                "64" => ClassificacaoTransacao.Contas,
                 "66" => ClassificacaoTransacao.Contas, // ATIVIDADES AUXILIARES DOS SERVIÇOS FINANCEIROS, SEGUROS, PREVIDÊNCIA COMPLEMENTAR E PLANOS DE SAÚDE
                 "68" => ClassificacaoTransacao.Contas, // Atividades imobiliárias
                 "97" => ClassificacaoTransacao.Contas, // Serviços domésticos

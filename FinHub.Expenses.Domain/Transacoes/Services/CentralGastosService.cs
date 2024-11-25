@@ -2,6 +2,7 @@
 using FinHub.Gastos.Domain.Transacoes.Interfaces;
 using FinHub.Gastos.Domain.Transacoes.Models;
 using FinHub.Infra;
+using System.Net;
 
 namespace FinHub.Gastos.Domain.Transacoes.Services
 {
@@ -76,7 +77,7 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
             {
                 ClienteCPF = transacao.Cliente.Cpf,
                 ClienteConta = transacao.Cliente.NumeroContaBancaria,
-                NomeEmpresa = empresa.NomeFantasia,
+                NomeEmpresa = empresa.NomeFantasia ?? empresa.CnaeFiscalPrincipal.Nome,
                 DataGasto = transacao.Pagamento.Data,
                 ValorGasto = valorGasto,
                 Classificacao = classificacao
