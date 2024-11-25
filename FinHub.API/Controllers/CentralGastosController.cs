@@ -12,7 +12,7 @@ namespace FinHub.API.Controllers
     {
         private readonly ICentralGastosService centralGastosService = centralGastosService;
 
-        [HttpGet("ReceberTransacao")]
+        [HttpPost("ReceberTransacao")]
         public IActionResult ReceberTransacao([FromBody] TransacaoRequest transacaoRequest)
         {
             if (transacaoRequest == null)
@@ -30,7 +30,7 @@ namespace FinHub.API.Controllers
             }
         }
 
-        [HttpGet("GetGastosPorClassificacao")]
+        [HttpPost("GetGastosPorClassificacao")]
         public IActionResult GetGastosPorClassificacao([FromBody] GastosPorClassificacaoRequest gastosPorClassificacao)
         {
             if (gastosPorClassificacao == null)
@@ -49,7 +49,7 @@ namespace FinHub.API.Controllers
             }
         }
 
-        [HttpGet("GetGastosPorConta")]
+        [HttpPost("GetGastosPorConta")]
         public IActionResult GetGastosPorConta([FromBody] GastosPorContaRequest gastosPorConta)
         {
             if (gastosPorConta == null)
