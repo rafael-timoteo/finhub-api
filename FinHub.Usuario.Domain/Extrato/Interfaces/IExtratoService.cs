@@ -11,7 +11,7 @@ namespace FinHub.Usuario.Domain.Interfaces
         /// Retorna informações da conta corrente.
         /// </summary>
         /// <returns>Lista com informações de id_banco, saldo e tipo_conta.</returns>
-        List<ContaCorrenteDTO> ObterInformacoesContaCorrente(string numeroConta);
+        List<ContaCorrenteDTO> ObterInformacoesContaCorrente(string cpf);
 
         public decimal ObterSaldo(string cpf);
 

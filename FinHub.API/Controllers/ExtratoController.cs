@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace finhub_api.Controllers
+namespace FinHub.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -11,12 +11,12 @@ namespace finhub_api.Controllers
     {
         private readonly IExtratoService extratoService = extratoService;
 
-        [HttpPost("ExtratoConta")]
-        public IActionResult ObterContaCorrente(string numeroConta)
+        [HttpGet("ExtratoConta")]
+        public IActionResult ObterContaCorrente(string cpf)
         {
             try
             {
-                var contas = extratoService.ObterInformacoesContaCorrente(numeroConta);
+                var contas = extratoService.ObterInformacoesContaCorrente(cpf);
                 return Ok(contas);
             }
             catch (Exception ex)
@@ -25,7 +25,7 @@ namespace finhub_api.Controllers
             }
         }
 
-        [HttpPost("SaldoConta")]
+        [HttpGet("SaldoConta")]
         public IActionResult ObterSaldoConta(string cpf)
         {
             try
@@ -39,7 +39,7 @@ namespace finhub_api.Controllers
             }
         }
 
-        [HttpPost("EntradasConta")]
+        [HttpGet("EntradasConta")]
         public IActionResult ObterEntradas(string cpf)
         {
             try
@@ -53,7 +53,7 @@ namespace finhub_api.Controllers
             }
         }
 
-        [HttpPost("SaidasConta")]
+        [HttpGet("SaidasConta")]
         public IActionResult ObterSaidas(string cpf)
         {
             try
