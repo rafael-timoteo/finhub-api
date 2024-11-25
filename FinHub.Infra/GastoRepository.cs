@@ -43,15 +43,17 @@ namespace FinHub.Infra
         /// <param name="dataInicio"></param>
         /// <param name="dataFim"></param>
         /// <returns>Valor do gasto por tipo</returns>
-        public static decimal SelectGastoClassificacao(string cpf, string classificacao, DateTime dataInicio, DateTime dataFim)
+        public static Dictionary<string, decimal> SelectGastoClassificacao(string cpf, DateTime dataInicio, DateTime dataFim)
         {
             using var dbConnection = new DBConnection();
-            string query = @"SELECT COALESCE(valortransacao::money, 0::money)
-                        FROM finhub.extrato 
-                        WHERE clientecpf = @cpf 
-                            AND datatransacao BETWEEN @dataInicio AND @dataFim 
-                            AND classificacao = @classificacao;";
-            return dbConnection.Connection.QueryFirstOrDefault<decimal>(query, new { cpf, classificacao, dataInicio, dataFim });
+            string query = @"SELECT classificacao, COALESCE(SUM(valortransacao::money), 0::money) AS valor
+                             FROM finhub.extrato 
+                             WHERE clientecpf = @cpf 
+                                 AND datatransacao BETWEEN @dataInicio AND @dataFim 
+                             GROUP BY classificacao;";
+            var result = dbConnection.Connection.Query(query, new { cpf, dataInicio, dataFim })
+                                                .ToDictionary(row => (string)row.classificacao, row => (decimal)row.valor);
+            return result;
         }
 
         /// <summary>
@@ -129,13 +131,13 @@ namespace FinHub.Infra
         /// <param name="cpf"></param>
         /// <param name="classificacao"></param>
         /// <returns>Primeira e última data</returns>
-        public static DateTime[] GetIntervaloDataPadraoClassificacao(string cpf, string classificacao)
+        public static DateTime[] GetIntervaloDataPadraoClassificacao(string cpf)
         {
             using var dbConnection = new DBConnection();
             string query = @"SELECT MIN(datatransacao) AS MinData, MAX(datatransacao) AS MaxData 
                              FROM finhub.extrato 
                              WHERE clientecpf = @cpf AND classificacao = @classificacao";
-            var result = dbConnection.Connection.QueryFirstOrDefault<(DateTime MinData, DateTime MaxData)>(query, new { cpf, classificacao });
+            var result = dbConnection.Connection.QueryFirstOrDefault<(DateTime MinData, DateTime MaxData)>(query, new { cpf });
             return [result.MinData, result.MaxData];
         }
 

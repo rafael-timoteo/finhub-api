@@ -31,7 +31,7 @@ namespace FinHub.API.Controllers
             try
             {
                 var saldo = extratoService.ObterSaldo(cpf);
-                return Ok($"Saldo: {saldo}");
+                return Ok(saldo);
             }
             catch (Exception ex)
             {

@@ -41,10 +41,9 @@ namespace FinHub.API.Controllers
             try
             {
                 var valorGasto = centralGastosService.GetGastoClassificacao(gastosPorClassificacao.ClienteCPF, 
-                                                                            gastosPorClassificacao.Classificacao, 
                                                                             gastosPorClassificacao.DataInicio, 
                                                                             gastosPorClassificacao.DataFim);
-                return Ok($"{gastosPorClassificacao.Classificacao}: {valorGasto}");
+                return Ok(valorGasto);
             }
             catch (Exception ex)
             {

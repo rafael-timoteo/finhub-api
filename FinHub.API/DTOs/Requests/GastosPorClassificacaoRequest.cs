@@ -6,8 +6,6 @@ namespace FinHub.API.DTOs.Requests
     {
         public string ClienteCPF { get; set; }
 
-        public ClassificacaoTransacao Classificacao { get; set; }
-
         public DateTime DataInicio { get; set; }
 
         public DateTime DataFim { get; set; }

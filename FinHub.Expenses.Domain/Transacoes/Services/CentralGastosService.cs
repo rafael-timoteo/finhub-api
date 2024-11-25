@@ -19,7 +19,7 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
         }
 
         /// <inheritdoc />
-        public decimal GetGastoClassificacao(string clienteCPF, ClassificacaoTransacao classificacao, DateTime? dataInicio, DateTime? dataFim)
+        public Dictionary<string, decimal> GetGastoClassificacao(string clienteCPF, DateTime? dataInicio, DateTime? dataFim)
         {
             if (!GastoRepository.ConferirCPF(clienteCPF))
             {
@@ -27,11 +27,11 @@ namespace FinHub.Gastos.Domain.Transacoes.Services
             }
             if (dataInicio == null || dataFim == null)
             {
-                DateTime[] intervaloDatas = GastoRepository.GetIntervaloDataPadraoClassificacao(clienteCPF, classificacao.ToString());
+                DateTime[] intervaloDatas = GastoRepository.GetIntervaloDataPadraoClassificacao(clienteCPF);
                 dataInicio = intervaloDatas[0];
                 dataFim = intervaloDatas[1];
             }
-            return GastoRepository.SelectGastoClassificacao(clienteCPF, classificacao.ToString(), dataInicio.Value, dataFim.Value);
+            return GastoRepository.SelectGastoClassificacao(clienteCPF, dataInicio.Value, dataFim.Value);
         }
 
         /// <inheritdoc />
