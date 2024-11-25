@@ -4,7 +4,7 @@ using FinHub.API.Requests;
 using FinHub.Gastos.Domain.Transacoes.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace finhub_api.Controllers
+namespace FinHub.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -49,7 +49,7 @@ namespace finhub_api.Controllers
             }
         }
 
-        [HttpPost("GetGastosPorConta")]
+        [HttpGet("GetGastosPorConta")]
         public IActionResult GetGastosPorConta([FromBody] GastosPorContaRequest gastosPorConta)
         {
             if (gastosPorConta == null)
